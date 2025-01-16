@@ -77,10 +77,13 @@ public class Informacion extends JPanel{
                 
                 if(desplegable.getSelectedItem().equals(1)){
                     control.setCommand(reproducir);
+                    control.setButton();
                 }else if(desplegable.getSelectedItem().equals(2)){
                     control.setCommand(pausar);
+                    control.setButton();
                 }else{
                     control.setCommand(avanzar);
+                    control.setButton();
                 }
             } 
         });
