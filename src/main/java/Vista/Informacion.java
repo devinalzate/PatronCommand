@@ -76,11 +76,11 @@ public class Informacion extends JPanel{
                 Command avanzar = new ActionAvanzar(repro);
                 
                 if(desplegable.getSelectedItem().equals(1)){
-                    reproducir.execute();
+                    control.setCommand(reproducir);
                 }else if(desplegable.getSelectedItem().equals(2)){
-                    avanzar.execute();
+                    control.setCommand(pausar);
                 }else{
-                    pausar.execute();
+                    control.setCommand(avanzar);
                 }
             } 
         });
