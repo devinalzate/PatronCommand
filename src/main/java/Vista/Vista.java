@@ -11,7 +11,7 @@ public class Vista extends JFrame{
     private Informacion informacion;
 
     public Vista(){
-        setTitle("Chain of responsability");
+        setTitle("Mi reproductor de musica");
         setLayout(new BorderLayout());
 
 

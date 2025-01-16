@@ -12,7 +12,7 @@ import Interface.Command;
 public class Controller {
     private Command comando;
 
-    public Controller(Command comando) {
+    public void setCommand(Command comando) {
         this.comando = comando;
     }
     

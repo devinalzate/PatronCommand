@@ -1,6 +1,12 @@
 package Vista;
 
 
+import Commands.ActionAvanzar;
+import Commands.ActionPausar;
+import Commands.ActionReproducir;
+import Reproductor.MiMusica;
+import com.mycompany.command.Controller;
+import Interface.Command;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -15,10 +21,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import Gerencia.gerencia;
-import Manejos_concretos.Contabilidad;
-import Manejos_concretos.Personal;
-
 public class Informacion extends JPanel{
     private JLabel manejo1;
     private JLabel manejo2;
@@ -28,7 +30,6 @@ public class Informacion extends JPanel{
     private JButton confirmacion;
     private JPanel panelCentrado;
     private JPanel panelTexto;
-    private Contabilidad obj2 = null;
     
     public Informacion(){
         setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
@@ -41,9 +42,9 @@ public class Informacion extends JPanel{
         panelTexto.setBorder(BorderFactory.createMatteBorder(
             1, 5, 1, 1, Color.red));
 
-        manejo1 = new JLabel("1. Para Contabilidad");
-        manejo2 = new JLabel("2. Para Personal");
-        manejo3 = new JLabel("3. Para Gerencia");
+        manejo1 = new JLabel("1. Para Reproducir");
+        manejo2 = new JLabel("2. Para Avanzar");
+        manejo3 = new JLabel("3. Para Pausar");
 /* 
         manejo1.setAlignmentX(CENTER_ALIGNMENT);
         manejo2.setAlignmentX(CENTER_ALIGNMENT);
@@ -67,22 +68,21 @@ public class Informacion extends JPanel{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (obj2 != null) { // Si el programa detecta que ya se han creado los objetos, no los creara si no que simplemente accedera a metodos de los objetos ya creados
-                    int op = getOP();
-                    JOptionPane.showMessageDialog(null, obj2.getManejo(op));                    
-                }else{
-                    gerencia obj =new gerencia();       //Crea un objeto de gerencia
-                    Personal obj1 = new Personal(obj);      //Crea un objeto de personal
-                    Contabilidad obj2 =new Contabilidad(obj1);      //Crea un objeto de contabilidad
-                    int op = getOP();
-                    JOptionPane.showMessageDialog(null, obj2.getManejo(op));  
-                }
+                MiMusica repro = new MiMusica();
+                Controller control = new Controller();
                 
+                Command reproducir = new ActionReproducir(repro);
+                Command pausar = new ActionPausar(repro);
+                Command avanzar = new ActionAvanzar(repro);
+                
+                if(desplegable.getSelectedItem().equals(1)){
+                    reproducir.execute();
+                }else if(desplegable.getSelectedItem().equals(2)){
+                    avanzar.execute();
+                }else{
+                    pausar.execute();
+                }
             } 
         });
-    }
-
-    public Integer getOP(){
-        return (Integer) desplegable.getSelectedItem();
     }
 }
